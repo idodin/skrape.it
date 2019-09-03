@@ -14,6 +14,7 @@ data class Request(
         var ignoreContentType: Boolean = true,
         var ignoreHttpErrors: Boolean = true,
         var validateTLSCertificates: Boolean = false,
+        var requestBody: String? = null,
         var maxBodySize: Int = 0
 )
 

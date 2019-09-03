@@ -58,5 +58,5 @@ internal class ParserTest {
         assertThat(result.selectFirst("p").text()).isEqualTo("dynamically added")
     }
 
-    private fun getMarkupFromFile(file: String) = javaClass.getResource("/__files/$file").readText()
+    private fun getMarkupFromFile(file: String) = javaClass.getResource("/files/$file").readText()
 }

@@ -2,25 +2,17 @@ package it.skrape.core
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import it.skrape.HttpBinSetup
+import it.skrape.selects.element
 import org.junit.jupiter.api.Test
 
-internal class ScraperTest : WireMockSetup() {
-
-    @Test
-    internal fun `can scrape directly with default options`() {
-        wireMockServer.setupStub(contentType = "test/type")
-        val result = Scraper().scrape()
-
-        assertThat(result.statusCode).isEqualTo(200)
-        assertThat(result.document.title()).isEqualTo("i'm the title")
-    }
+internal class ScraperTest : HttpBinSetup() {
 
     @Test
     internal fun `can scrape html via custom http request`() {
-        wireMockServer.setupStub(path = "/example")
-        val result = Scraper(request = Request(url = "http://localhost:8080/example")).scrape()
+        val result = Scraper(request = Request(url = httpBin("html"))).scrape()
 
         assertThat(result.statusCode).isEqualTo(200)
-        assertThat(result.document.title()).isEqualTo("i'm the title")
+        assertThat(result.document.element("h1")).isEqualTo("Herman Melville - Moby-Dick")
     }
 }

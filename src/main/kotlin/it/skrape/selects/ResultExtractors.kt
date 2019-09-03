@@ -58,6 +58,9 @@ fun Result.title(init: String.() -> Unit): String {
 }
 
 @SkrapeItDslMarker
+fun Result.h1(init: Element.() -> Unit) = element("h1").apply(init)
+
+@SkrapeItDslMarker
 fun Result.body(init: Element.() -> Unit): Element {
     val body = document.body()
     body.apply(init)

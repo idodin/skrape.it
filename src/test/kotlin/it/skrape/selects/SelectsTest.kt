@@ -3,9 +3,8 @@ package it.skrape.selects
 import assertk.assertAll
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import it.skrape.HttpBinSetup
 import it.skrape.core.Request
-import it.skrape.core.WireMockSetup
-import it.skrape.core.setupStub
 import it.skrape.exceptions.ElementNotFoundException
 import it.skrape.expect
 import it.skrape.extract
@@ -15,7 +14,7 @@ import it.skrape.skrape
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-internal class SelectsTest : WireMockSetup() {
+internal class SelectsTest : HttpBinSetup() {
 
     @Test
     internal fun `will throw custom exception if element could not be found via element function`() {
@@ -39,17 +38,17 @@ internal class SelectsTest : WireMockSetup() {
 
     @Test
     internal fun `can pick elements via select functions`() {
-        wireMockServer.setupStub()
 
-        val expectedValue = "i'm a paragraph"
+        val expectedValue = "Herman Melville - Moby-Dick"
 
         skrape {
+            url = httpBin("html")
             extract {
                 assertAll {
-                    assertThat(el("p").text()).isEqualTo(expectedValue)
-                    assertThat(element("p").text()).isEqualTo(expectedValue)
-                    assertThat(elements("p").first().text()).isEqualTo(expectedValue)
-                    assertThat(`$`("p").first().text()).isEqualTo(expectedValue)
+                    assertThat(el("h1").text()).isEqualTo(expectedValue)
+                    assertThat(element("h1").text()).isEqualTo(expectedValue)
+                    assertThat(elements("h1").first().text()).isEqualTo(expectedValue)
+                    assertThat(`$`("h1").first().text()).isEqualTo(expectedValue)
                 }
 
             }
@@ -58,9 +57,9 @@ internal class SelectsTest : WireMockSetup() {
 
     @Test
     internal fun `can pick certain header select functions`() {
-        wireMockServer.setupStub()
-
         skrape {
+            url = httpBin("html")
+            headers = mapOf("Content-Type" to "text/html; charset=UTF-8")
             expect {
                 header("Content-Type") toBe "text/html; charset=UTF-8"
                 header("Content-Type") toContain "html"
@@ -68,5 +67,4 @@ internal class SelectsTest : WireMockSetup() {
             }
         }
     }
-
 }
