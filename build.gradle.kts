@@ -6,16 +6,10 @@ plugins {
     kotlin("jvm") version "1.2.50"
     jacoco
     id("org.jetbrains.dokka") version "0.10.0"
-    id("com.adarshr.test-logger") version "2.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.1.1"
 }
 
 val ideaDetected = System.getProperty("idea.version") != null
-
-testlogger {
-    setTheme(if (!ideaDetected) "mocha" else "standard")
-    slowThreshold = 1000
-}
 
 repositories {
     jcenter()
