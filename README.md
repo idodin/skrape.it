@@ -1,3 +1,12 @@
+## Experiments
+
+This fork of the original skrape.it project contains experiments on improving the Release Pipeline for the system, as part of a Release Engineering course I took at McGill University.
+
+Please find ruby scripts for experimentation in the experiment directory, Dockerfiles are provided for your ease of use. We experimented with:
+* Gradle vs Maven - improvements on build time with and without caching
+* Travis vs Github Actions - improvements on time to release
+
+
 <img width="150px" height="150px" align="right" src="skrape.png"/>
 
 [![Documentation](https://img.shields.io/badge/skrape%7Bit%7D-docs-blue.svg)](https://docs.skrape.it)
